@@ -139,7 +139,7 @@ class HomePage extends StatelessWidget {
     Widget popularProductTitle() {
       return Container(
         margin: EdgeInsets.only(
-            top: defaultMargin, left: defaultMargin, bottom: defaultMargin),
+            top: defaultMargin, left: defaultMargin, bottom: 10),
         child: Text(
           'Popular Products',
           style: primaryTextStyle.copyWith(
@@ -175,7 +175,7 @@ class HomePage extends StatelessWidget {
     Widget newArrivalTitle() {
       return Container(
         margin: EdgeInsets.only(
-            top: defaultMargin, left: defaultMargin, bottom: defaultMargin),
+            top: defaultMargin, left: defaultMargin, bottom: 10),
         child: Text(
           'New Arrival',
           style: primaryTextStyle.copyWith(

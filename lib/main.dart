@@ -1,5 +1,7 @@
 import 'package:AStore/pages/detail_chat_page.dart';
+import 'package:AStore/pages/edit_profile_page.dart';
 import 'package:AStore/pages/home/main_page.dart';
+import 'package:AStore/pages/product_detail_page.dart';
 import 'package:AStore/pages/sign_in_page.dart';
 import 'package:AStore/pages/sign_up_page.dart';
 import 'package:AStore/pages/splash_page.dart';
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
         '/sign-up' : (context) => SignUpPage(),
         '/main-page' : (context) => MainPage(),
         '/detail-chat' : (context) => DetailChatPage(),
+        '/edit-profile' : (context) => EditProfilePage(),
+        '/product-detail' : (context) => ProductDetailPage(),
         
       },
     );
