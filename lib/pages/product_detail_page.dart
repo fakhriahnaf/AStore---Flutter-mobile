@@ -10,6 +10,15 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   List images = ['assets/dummy3.png', 'assets/dummy4.png', 'assets/dummy5.png'];
 
+  List familiarProducts = [
+    'assets/dummy3.png',
+    'assets/dummy4.png',
+    'assets/dummy5.png',
+    'assets/dummy3.png',
+    'assets/dummy4.png',
+    'assets/dummy5.png'
+  ];
+
   int currentIndex = 0;
 
   @override
@@ -22,6 +31,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: currentIndex == index ? primaryColor : Color(0xFFC4c4c4)),
+      );
+    }
+
+    Widget familiarProductCard(String imageUrl) {
+      return Container(
+        width: 64,
+        height: 64,
+        margin: EdgeInsets.only(
+          right: 14,
+        ),
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(imageUrl)),
+          borderRadius: BorderRadius.circular(6),
+        ),
       );
     }
 
@@ -81,13 +104,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     }
 
     Widget content() {
+      int index = -1;
+
       return Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: 17),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(24)
-          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           color: backgroundColor1,
         ),
         child: Column(
@@ -102,14 +125,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               child: Row(
                 children: [
                   Expanded(
-                     child: Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ADDIDAZ Yezzy Bootss', 
-                        style: primaryTextStyle.copyWith(
-                          fontSize: 18, fontWeight: semiBold
-                          )
-                        ),
+                        Text('ADDIDAZ Yezzy Bootss',
+                            style: primaryTextStyle.copyWith(
+                                fontSize: 18, fontWeight: semiBold)),
                         Text(
                           'Shoes',
                           style: secondaryTextStyle.copyWith(
@@ -120,7 +141,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ),
                   Image.asset('assets/whislist_button.png', width: 46),
-
                 ],
               ),
             ),
@@ -137,19 +157,19 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Price start from',
-                    style: primaryTextStyle,
-                  ),
-                  Text(
-                    'IDR 120.000',
-                    style: priceTextStyle,
-                  )
-                ]),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Price start from',
+                      style: primaryTextStyle,
+                    ),
+                    Text(
+                      'IDR 120.000',
+                      style: priceTextStyle,
+                    )
+                  ]),
             ),
-            
+
             Container(
               width: double.infinity,
               margin: EdgeInsets.only(
@@ -174,6 +194,86 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     'dnwjdnjnwq nwjndjqwnjdn njndjnjsafndj nwdjnwjdqw s',
                     style: secondaryTextStyle.copyWith(fontWeight: light),
                     textAlign: TextAlign.justify,
+                  )
+                ],
+              ),
+            ),
+
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(top: defaultMargin),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                    child: Text(
+                      'Familiar Products',
+                      style: primaryTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: medium,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: familiarProducts.map((image) {
+                      index++;
+                      return Container(
+                        margin: EdgeInsets.only(
+                          left: index == 0 ? defaultMargin : 0
+                        ),
+                        child: familiarProductCard(image),
+                      );
+                    }).toList()
+                  ),
+                  )
+                ],
+              ),
+            ),
+
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(
+                top: defaultMargin,
+                left: defaultMargin,
+                right: defaultMargin,
+                bottom: 40,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 54,
+                    height: 54,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage(
+                        'assets/button_chat.png'
+                      ))
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 54,
+                      child: TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          primary: primaryColor,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: primaryColor
+                        ),
+                        child: Text(
+                          'Add to Cart',
+                          style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
