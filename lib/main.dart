@@ -1,3 +1,4 @@
+import 'package:AStore/pages/cart_page.dart';
 import 'package:AStore/pages/detail_chat_page.dart';
 import 'package:AStore/pages/edit_profile_page.dart';
 import 'package:AStore/pages/home/main_page.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/detail-chat' : (context) => DetailChatPage(),
         '/edit-profile' : (context) => EditProfilePage(),
         '/product-detail' : (context) => ProductDetailPage(),
+        '/cart' : (context) => CartPage(),
         
       },
     );

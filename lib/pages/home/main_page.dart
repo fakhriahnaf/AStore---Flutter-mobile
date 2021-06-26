@@ -17,7 +17,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     Widget cartButton() {
       return FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/cart');
+          },
           backgroundColor: secondaryColor,
           child: Image.asset('assets/icon_cart.png', width: 20));
     }
@@ -45,15 +47,16 @@ class _MainPageState extends State<MainPage> {
                     margin: EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset('assets/icon_home.png',
                         width: 21,
-                        color:
-                            currentIndex == 0 ? primaryColor : Color(0xFF808191)),
+                        color: currentIndex == 0
+                            ? primaryColor
+                            : Color(0xFF808191)),
                   ),
                   label: '',
                 ),
                 BottomNavigationBarItem(
                     icon: Container(
                       margin: EdgeInsets.only(top: 20, bottom: 10),
-                                          child: Image.asset('assets/icon_chat.png',
+                      child: Image.asset('assets/icon_chat.png',
                           width: 21,
                           color: currentIndex == 1
                               ? primaryColor
@@ -63,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                 BottomNavigationBarItem(
                     icon: Container(
                       margin: EdgeInsets.only(top: 20, bottom: 10),
-                                          child: Image.asset('assets/icon_favourite.png',
+                      child: Image.asset('assets/icon_favourite.png',
                           width: 21,
                           color: currentIndex == 2
                               ? primaryColor
@@ -107,7 +110,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      backgroundColor: currentIndex == 0 ?  backgroundColor1 :backgroundColor3,
+      backgroundColor: currentIndex == 0 ? backgroundColor1 : backgroundColor1,
       floatingActionButton: cartButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: customBottomNav(),
