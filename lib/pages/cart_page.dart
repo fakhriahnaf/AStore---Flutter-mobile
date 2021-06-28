@@ -75,64 +75,58 @@ class CartPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Subtotal',
-                  style: primaryTextStyle.copyWith(fontSize: 16),
-                ),
-                Text(
-                  'IDR 120.000',
-                  style: priceTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: semiBold
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Divider(
-            thickness: 0.3,
-            color: subtitleTextColor,
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            height: 50,
-            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
-            child: TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                backgroundColor: primaryColor,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
-                )
-              ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Continue to Order',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 16,
-                      fontWeight: semiBold
-                    )
+                    'Subtotal',
+                    style: primaryTextStyle.copyWith(fontSize: 16),
                   ),
-                  Icon(
-                    Icons.arrow_forward,color: primaryTextColor,
+                  Text(
+                    'IDR 120.000',
+                    style: priceTextStyle.copyWith(
+                        fontSize: 16, fontWeight: semiBold),
                   )
                 ],
-              ) 
+              ),
             ),
-          )
+            SizedBox(
+              height: 30,
+            ),
+            Divider(
+              thickness: 0.3,
+              color: subtitleTextColor,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/checkout');
+                  },
+                  style: TextButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Continue to Order',
+                          style: primaryTextStyle.copyWith(
+                              fontSize: 16, fontWeight: semiBold)),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: primaryTextColor,
+                      )
+                    ],
+                  )),
+            )
           ],
         ),
       );

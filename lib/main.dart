@@ -1,4 +1,6 @@
 import 'package:AStore/pages/cart_page.dart';
+import 'package:AStore/pages/checkout_page.dart';
+import 'package:AStore/pages/checkout_success_page.dart';
 import 'package:AStore/pages/detail_chat_page.dart';
 import 'package:AStore/pages/edit_profile_page.dart';
 import 'package:AStore/pages/home/main_page.dart';
@@ -27,7 +29,8 @@ class MyApp extends StatelessWidget {
         '/edit-profile' : (context) => EditProfilePage(),
         '/product-detail' : (context) => ProductDetailPage(),
         '/cart' : (context) => CartPage(),
-        
+        '/checkout' : (context) => CheckoutPage(),
+        '/success-checkout' : (context) => CheckoutSuccessPage(),
       },
     );
   }
