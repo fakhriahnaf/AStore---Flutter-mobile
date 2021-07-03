@@ -1,28 +1,52 @@
 import 'package:AStore/providers/auth_provider.dart';
 import 'package:AStore/services/auth_service.dart';
 import 'package:AStore/theme.dart';
+import 'package:AStore/widget/loading_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_snackbar/flutter_snackbar.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController(text: '');
   TextEditingController usernameController = TextEditingController(text: '');
   TextEditingController emailController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     handleSignUp() async {
-      if(await authProvider.register(
+      setState(() {
+        isLoading = true;
+      });
+
+      if (await authProvider.register(
         email: emailController.text,
         name: nameController.text,
         password: passwordController.text,
         username: usernameController.text,
       )) {
-          Navigator.pushNamed(context, '/home');
+        Navigator.pushNamed(context, '/main-page');
+        // } else {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       backgroundColor: alertColor,
+        //       content: Text(
+        //         'Gagal Login',
+        //         textAlign: TextAlign.center,
+        //       ))
+        //   );
       }
-      
+      setState(() {
+        isLoading = false;
+      });
     }
 
     Widget header() {
@@ -238,7 +262,7 @@ class SignUpPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
           child: Text(
-            'Sign In',
+            'Sign Up',
             style:
                 primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
           ),
@@ -291,7 +315,7 @@ class SignUpPage extends StatelessWidget {
               username(),
               emailInput(),
               passwordInput(),
-              signUpButton(),
+              isLoading ? LoadingButton() : signUpButton(),
               Spacer(),
               footer(),
             ],

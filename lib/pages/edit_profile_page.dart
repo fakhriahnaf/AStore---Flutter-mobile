@@ -1,9 +1,15 @@
+import 'package:AStore/models/user_model.dart';
+import 'package:AStore/providers/auth_provider.dart';
 import 'package:AStore/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     Widget header() {
       return AppBar(
         leading: IconButton(
@@ -27,27 +33,21 @@ class EditProfilePage extends StatelessWidget {
 
     Widget nameInput() {
       return Container(
-        margin: EdgeInsets.only(
-          top: 30
-        ),
+        margin: EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Name',
-              style: secondaryTextStyle.copyWith(
-                fontSize: 13
-              ),
+              style: secondaryTextStyle.copyWith(fontSize: 13),
             ),
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: 'Tiara Adellyn',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: subtitleTextColor)
-                )
-              ),
+                  hintText: user.name,
+                  hintStyle: primaryTextStyle,
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: subtitleTextColor))),
             )
           ],
         ),
@@ -56,27 +56,21 @@ class EditProfilePage extends StatelessWidget {
 
     Widget usernameInput() {
       return Container(
-        margin: EdgeInsets.only(
-          top: 30
-        ),
+        margin: EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Username',
-              style: secondaryTextStyle.copyWith(
-                fontSize: 13
-              ),
+              style: secondaryTextStyle.copyWith(fontSize: 13),
             ),
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: '@tiaradellyn',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: subtitleTextColor)
-                )
-              ),
+                  hintText: user.username,
+                  hintStyle: primaryTextStyle,
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: subtitleTextColor))),
             )
           ],
         ),
@@ -85,27 +79,21 @@ class EditProfilePage extends StatelessWidget {
 
     Widget emailInput() {
       return Container(
-        margin: EdgeInsets.only(
-          top: 30
-        ),
+        margin: EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Email Address',
-              style: secondaryTextStyle.copyWith(
-                fontSize: 13
-              ),
+              style: secondaryTextStyle.copyWith(fontSize: 13),
             ),
             TextFormField(
               style: primaryTextStyle,
               decoration: InputDecoration(
-                hintText: 'adellyn@mail.com',
-                hintStyle: primaryTextStyle,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: subtitleTextColor)
-                )
-              ),
+                  hintText: user.email,
+                  hintStyle: primaryTextStyle,
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: subtitleTextColor))),
             )
           ],
         ),
@@ -126,9 +114,10 @@ class EditProfilePage extends StatelessWidget {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      image: AssetImage(
-                    'assets/icon_photo_null.png',
-                  ))),
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                        user.profilePhotoUrl,
+                      ))),
             ),
             nameInput(),
             usernameInput(),
