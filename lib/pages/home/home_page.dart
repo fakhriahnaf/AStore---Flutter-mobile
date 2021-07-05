@@ -1,5 +1,6 @@
 import 'package:AStore/models/user_model.dart';
 import 'package:AStore/providers/auth_provider.dart';
+import 'package:AStore/providers/product_provider.dart';
 import 'package:AStore/theme.dart';
 import 'package:AStore/widget/product-card.dart';
 import 'package:AStore/widget/product-tile.dart';
@@ -9,11 +10,10 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
-    
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
@@ -167,12 +167,8 @@ class HomePage extends StatelessWidget {
             children: [
               SizedBox(width: defaultMargin),
               Row(
-                children: [
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                ],
+                children: productProvider.products
+                  .map((product)=> ProductCard(product),).toList()
               )
             ],
           ),
@@ -200,12 +196,7 @@ class HomePage extends StatelessWidget {
           top: 14,
         ),
         child: Column(
-          children: [
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-            ProductTile(),
-          ],
+          children: productProvider.products.map((product) => ProductTile(product)).toList()
         ),
       );
     }

@@ -8,6 +8,7 @@ import 'package:AStore/pages/product_detail_page.dart';
 import 'package:AStore/pages/sign_in_page.dart';
 import 'package:AStore/pages/sign_up_page.dart';
 import 'package:AStore/pages/splash_page.dart';
+import 'package:AStore/providers/product_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'providers/auth_provider.dart';
@@ -24,7 +25,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,7 +1,11 @@
+import 'package:AStore/models/product_model.dart';
 import 'package:AStore/theme.dart';
 import 'package:flutter/material.dart';
 
 class ProductTile extends StatelessWidget {
+  final ProductModel product;
+  ProductTile(this.product);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -18,7 +22,7 @@ class ProductTile extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset('assets/dummy2.png',
+              child: Image.network(product.galleries[0].url,
                   width: 120, height: 120, fit: BoxFit.cover),
             ),
             SizedBox(width: 12),
@@ -27,7 +31,7 @@ class ProductTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Shoes',
+                  product.category.name,
                   style: secondaryTextStyle.copyWith(
                     fontSize: 12,
                   ),
@@ -35,14 +39,14 @@ class ProductTile extends StatelessWidget {
                 SizedBox(
                   height: 6,
                 ),
-                Text('Sepatu running Addidas',
+                Text(product.name,
                     style: primaryTextStyle.copyWith(
                         fontSize: 16, fontWeight: medium)),
                 SizedBox(
                   height: 6,
                 ),
                 Text(
-                  'IDR 120,000',
+                  'IDR {product.price}',
                   style: priceTextStyle.copyWith(fontWeight: medium),
                 )
               ],

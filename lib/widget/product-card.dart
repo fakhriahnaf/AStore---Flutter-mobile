@@ -1,7 +1,11 @@
+import 'package:AStore/models/product_model.dart';
 import 'package:AStore/theme.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
+  final ProductModel product;
+  ProductCard(this.product);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,7 +26,7 @@ class ProductCard extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Image.asset('assets/dummy1.png',
+            Image.network(product.galleries[0].url,
                 width: 215, height: 150, fit: BoxFit.cover),
             Container(
               margin: EdgeInsets.symmetric(
@@ -32,7 +36,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Shoes',
+                    product.category.name,
                     style: secondaryTextStyle.copyWith(
                       fontSize: 14,
                     ),
@@ -41,16 +45,17 @@ class ProductCard extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    'Napolyn EV 12',
+                    product.name,
                     style: blackTextStyle.copyWith(
                         fontSize: 16, fontWeight: semiBold),
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   SizedBox(
                     height: 6,
                   ),
                   Text(
-                    'IDR 120.000',
+                    '\${product.price}',
                     style: priceTextStyle.copyWith(
                         fontSize: 14, fontWeight: medium),
                   )
