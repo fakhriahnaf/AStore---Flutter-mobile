@@ -4,7 +4,7 @@ import 'package:AStore/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  String baseUrl = 'http://localhost:8000/api/';
+  String baseUrl = 'http://127.0.0.1:8000/api';
 
   Future<List<ProductModel>> getProducts() async {
     var url = '$baseUrl/products';

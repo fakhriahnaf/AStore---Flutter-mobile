@@ -1,8 +1,12 @@
+import 'package:AStore/models/product_model.dart';
 import 'package:AStore/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailPage extends StatefulWidget {
+  final ProductModel product;
+  ProductDetailPage(this.product);
+
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
 }
@@ -75,9 +79,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           CarouselSlider(
-              items: images
-                  .map((image) => Image.asset(
-                        image,
+              items: widget.product.galleries
+                  .map((image) => Image.network(
+                        image.url,
                         width: MediaQuery.of(context).size.width,
                         height: 310,
                         fit: BoxFit.cover,
@@ -95,7 +99,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: images.map((e) {
+              children: widget.product.galleries.map((e) {
                 index++;
                 return indicator(index);
               }).toList())
@@ -128,11 +132,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ADDIDAZ Yezzy Bootss',
+                        Text(widget.product.name,
                             style: primaryTextStyle.copyWith(
                                 fontSize: 18, fontWeight: semiBold)),
                         Text(
-                          'Shoes',
+                          widget.product.category.name,
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                           ),
@@ -164,7 +168,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       style: primaryTextStyle,
                     ),
                     Text(
-                      'IDR 120.000',
+                      '\DR ${widget.product.price}',
                       style: priceTextStyle,
                     )
                   ]),
@@ -183,15 +187,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   Text(
                     'Description',
                     style: primaryTextStyle.copyWith(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: medium,
                     ),
                   ),
                   SizedBox(
-                    height: 3,
+                    height: 6,
                   ),
                   Text(
-                    'dnwjdnjnwq nwjndjqwnjdn njndjnjsafndj nwdjnwjdqw s',
+                    widget.product.description,
                     style: secondaryTextStyle.copyWith(fontWeight: light),
                     textAlign: TextAlign.justify,
                   )
@@ -221,16 +225,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: familiarProducts.map((image) {
+                        children: familiarProducts.map((image) {
                       index++;
                       return Container(
                         margin: EdgeInsets.only(
-                          left: index == 0 ? defaultMargin : 0
-                        ),
+                            left: index == 0 ? defaultMargin : 0),
                         child: familiarProductCard(image),
                       );
-                    }).toList()
-                  ),
+                    }).toList()),
                   )
                 ],
               ),
@@ -250,10 +252,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     width: 54,
                     height: 54,
                     decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage(
-                        'assets/button_chat.png'
-                      ))
-                    ),
+                        image: DecorationImage(
+                            image: AssetImage('assets/button_chat.png'))),
                   ),
                   SizedBox(
                     width: 16,
@@ -264,13 +264,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       child: TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
-                          primary: primaryColor,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          backgroundColor: primaryColor
-                        ),
+                            primary: primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            backgroundColor: primaryColor),
                         child: Text(
                           'Add to Cart',
-                          style: primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+                          style: primaryTextStyle.copyWith(
+                              fontSize: 16, fontWeight: semiBold),
                         ),
                       ),
                     ),

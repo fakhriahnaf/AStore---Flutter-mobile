@@ -1,4 +1,5 @@
 import 'package:AStore/models/product_model.dart';
+import 'package:AStore/pages/product_detail_page.dart';
 import 'package:AStore/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product-detail');
+         Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailPage(product)));
       },
       child: Container(
         width: 215,
@@ -55,7 +56,7 @@ class ProductCard extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\${product.price}',
+                    '\IDR ${product.price}',
                     style: priceTextStyle.copyWith(
                         fontSize: 14, fontWeight: medium),
                   )
