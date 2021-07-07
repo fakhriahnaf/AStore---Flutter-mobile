@@ -1,7 +1,9 @@
 import 'package:AStore/models/product_model.dart';
+import 'package:AStore/providers/favourite_provider.dart';
 import 'package:AStore/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final ProductModel product;
@@ -27,6 +29,80 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    FavouriteProvider favouriteProvider =
+        Provider.of<FavouriteProvider>(context);
+
+    Future<void> ShowSuccessDialog() async {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) => Container(
+                width: MediaQuery.of(context).size.width - (2 * defaultMargin),
+                child: AlertDialog(
+                  backgroundColor: backgroundColor2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  content: SingleChildScrollView(
+                    child: Column(children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.close,
+                            color: primaryColor,
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/icon_success.png',
+                        width: 100,
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        'Congrats :)',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 18,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        'Item added successfully',
+                        style: secondaryTextStyle,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 154,
+                        height: 44,
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                              backgroundColor: primaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12))),
+                          child: Text(
+                            'View Cart',
+                            style: primaryTextStyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: medium,
+                            ),
+                          ),
+                        ),
+                      )
+                    ]),
+                  ),
+                ),
+              ));
+    }
+
     Widget indicator(int index) {
       return Container(
         width: currentIndex == index ? 16 : 4,
@@ -144,7 +220,31 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ],
                     ),
                   ),
-                  Image.asset('assets/whislist_button.png', width: 46),
+                  GestureDetector(
+                    onTap: () {
+                      favouriteProvider.setProduct(widget.product);
+
+                      if (favouriteProvider.isFavourite(widget.product)) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            backgroundColor: secondaryColor,
+                            content: Text(
+                              'Has beed added to favourite list',
+                              textAlign: TextAlign.center,
+                            )));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Has Been removed to favourite list',
+                                textAlign: TextAlign.center)));
+                      }
+                    },
+                    child: Image.asset(
+                      favouriteProvider.isFavourite(widget.product)
+                          ? 'assets/w.png'
+                          : 'assets/f.png',
+                      width: 46,
+                      height: 46,
+                    ),
+                  )
                 ],
               ),
             ),
@@ -168,10 +268,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       style: primaryTextStyle,
                     ),
                     Text(
-                      '\DR ${widget.product.price}',
-                      style: priceTextStyle,
+                      '\IDR ${widget.product.price}',
+                      style: priceTextStyle.copyWith(
+                        fontSize: 16,
+                        fontWeight: semiBold,
+                      ),
                     )
-                  ]),
+                  ]
+              ),
             ),
 
             Container(

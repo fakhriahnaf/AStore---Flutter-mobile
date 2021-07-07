@@ -27,15 +27,15 @@ class _SignInPageState extends State<SignInPage> {
         password: passwordController.text,
       )) {
         Navigator.pushNamed(context, '/main-page');
-        // } else {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       backgroundColor: alertColor,
-        //       content: Text(
-        //         'Gagal Login',
-        //         textAlign: TextAlign.center,
-        //       ))
-        //   );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: alertColor,
+              content: Text(
+                'Gagal Login',
+                textAlign: TextAlign.center,
+              ))
+          );
       }
       setState(() {
         isLoading = false;

@@ -1,9 +1,18 @@
+import 'package:AStore/models/product_model.dart';
+import 'package:AStore/providers/favourite_provider.dart';
 import 'package:AStore/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FavouriteCard extends StatelessWidget {
+  final ProductModel product;
+  FavouriteCard(this.product);
+
   @override
   Widget build(BuildContext context) {
+    FavouriteProvider favouriteProvider =
+        Provider.of<FavouriteProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(
         top: 20,
@@ -20,9 +29,7 @@ class FavouriteCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ClipRRect(
-            child: Image.asset('assets/dummy2.png', width: 60)
-          ),
+          ClipRRect(child: Image.network(product.galleries[0].url, width: 60)),
           SizedBox(
             width: 12,
           ),
@@ -31,22 +38,27 @@ class FavouriteCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Adidas Yezzy Bootss jdwdnwwnq',
+                  product.name,
                   style: primaryTextStyle.copyWith(
                     fontSize: 14,
                     fontWeight: semiBold,
                   ),
                 ),
                 Text(
-                  'IDR 120.000',
+                  '\IDR ${product.price}',
                   style: priceTextStyle,
                 )
               ],
             ),
           ),
-          Image.asset(
-            'assets/whistlist_button_on.png',
-            width: 34,
+          GestureDetector(
+            onTap: () {
+              favouriteProvider.setProduct(product);
+            },
+            child: Image.asset(
+              'assets/w.png',
+              width: 34,
+            ),
           )
         ],
       ),

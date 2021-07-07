@@ -10,7 +10,7 @@ class ProductService {
     var url = '$baseUrl/products';
     var headers = {'Content-Type': 'application/json'};
 
-    var response = await http.get(url, headers: headers);
+    var response = await http.get(Uri.parse(url), headers: headers);
     print(response.body);
 
     if (response.statusCode == 200) {

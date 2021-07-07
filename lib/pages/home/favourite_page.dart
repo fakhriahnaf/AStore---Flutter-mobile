@@ -1,10 +1,16 @@
+import 'package:AStore/providers/favourite_provider.dart';
 import 'package:AStore/widget/favourite_card.dart';
 import 'package:flutter/material.dart';
 import 'package:AStore/theme.dart';
+import 'package:provider/provider.dart';
 
 class FavouritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FavouriteProvider favouriteProvider =
+        Provider.of<FavouriteProvider>(context);
+
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -78,18 +84,16 @@ class FavouritePage extends StatelessWidget {
           color: backgroundColor1,
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-            children: [
-              FavouriteCard(),
-              FavouriteCard(),
-              FavouriteCard(),
-            ],
+            children: favouriteProvider.favourite.map((product) => FavouriteCard(product)).toList()
           ),
         ),
       );
     }
 
     return Column(
-      children: [header(), content()],
+      children: [
+        header(), 
+        favouriteProvider.favourite.length == 0 ? emptyFavouriteList() : content()],
     );
   }
 }

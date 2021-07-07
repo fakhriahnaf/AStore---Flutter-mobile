@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:AStore/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,8 +20,9 @@ class AuthService {
       'email': email,
       'password': password,
     });
+
     var response = await http.post(
-      url,
+      Uri.parse(url),
       headers: headers,
       body: body,
     );
@@ -52,7 +52,7 @@ class AuthService {
       'password': password,
     });
     var response = await http.post(
-      url,
+      Uri.parse(url),
       headers: headers,
       body: body,
     );
@@ -69,5 +69,4 @@ class AuthService {
       throw Exception('Gagal Login');
     }
   }
-
 }

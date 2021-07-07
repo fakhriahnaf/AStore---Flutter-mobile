@@ -1,10 +1,10 @@
 import 'package:AStore/providers/auth_provider.dart';
-import 'package:AStore/services/auth_service.dart';
+// import 'package:AStore/services/auth_service.dart';
 import 'package:AStore/theme.dart';
 import 'package:AStore/widget/loading_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_snackbar/flutter_snackbar.dart';
+// import 'package:flutter_snackbar/flutter_snackbar.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
