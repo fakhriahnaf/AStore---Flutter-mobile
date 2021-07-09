@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "203945422296",
+    "project_id": "astore-a3da6",
+    "storage_bucket": "astore-a3da6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203945422296:android:0b74a1dc7e47b93db816ad",
+        "android_client_info": {
+          "package_name": "com.fakhri.astore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "203945422296-op7nku0c7b2lht1t7u7pnujh1t5jitr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYLMOW6cifwGZR7BKmFVVD7qh3PIpCa2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "203945422296-op7nku0c7b2lht1t7u7pnujh1t5jitr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,6 @@
 import 'package:AStore/models/product_model.dart';
+import 'package:AStore/pages/detail_chat_page.dart';
+import 'package:AStore/providers/cart_provider.dart';
 import 'package:AStore/providers/favourite_provider.dart';
 import 'package:AStore/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -31,6 +33,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     FavouriteProvider favouriteProvider =
         Provider.of<FavouriteProvider>(context);
+
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     Future<void> ShowSuccessDialog() async {
       return showDialog(
@@ -83,7 +87,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         width: 154,
                         height: 44,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/cart');
+                          },
                           style: TextButton.styleFrom(
                               backgroundColor: primaryColor,
                               shape: RoundedRectangleBorder(
@@ -274,8 +280,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         fontWeight: semiBold,
                       ),
                     )
-                  ]
-              ),
+                  ]),
             ),
 
             Container(
@@ -352,12 +357,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
               child: Row(
                 children: [
-                  Container(
-                    width: 54,
-                    height: 54,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/button_chat.png'))),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailChatPage(widget.product)));
+                    },
+                    child: Container(
+                      width: 54,
+                      height: 54,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/button_chat.png'))),
+                    ),
                   ),
                   SizedBox(
                     width: 16,
@@ -366,7 +380,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     child: Container(
                       height: 54,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cartProvider.addCart(widget.product);
+                          ShowSuccessDialog();
+                        },
                         style: TextButton.styleFrom(
                             primary: primaryColor,
                             shape: RoundedRectangleBorder(

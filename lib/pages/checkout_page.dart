@@ -1,10 +1,40 @@
+import 'package:AStore/providers/auth_provider.dart';
+import 'package:AStore/providers/cart_provider.dart';
+import 'package:AStore/providers/transaction_provider.dart';
 import 'package:AStore/theme.dart';
 import 'package:AStore/widget/checkout_card.dart';
+import 'package:AStore/widget/loading_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
+  @override
+  _CheckoutPageState createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    TransactionProvider transactionProvider =
+        Provider.of<TransactionProvider>(context);
+
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleCheckOut() async {
+      setState(() {
+        isLoading = true;
+      });
+      if (await transactionProvider.checkout(authProvider.user.token,
+          cartProvider.carts, cartProvider.totalPrice())) {
+        cartProvider.carts = [];
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/success-checkout', (route) => false);
+      }
+    }
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -31,8 +61,11 @@ class CheckoutPage extends StatelessWidget {
                   style: primaryTextStyle.copyWith(
                       fontSize: 16, fontWeight: medium),
                 ),
-                CheckoutCard(),
-                CheckoutCard(),
+                Column(
+                  children: cartProvider.carts
+                      .map((cart) => CheckoutCard(cart))
+                      .toList(),
+                )
               ],
             ),
           ),
@@ -122,7 +155,7 @@ class CheckoutPage extends StatelessWidget {
                       style: secondaryTextStyle.copyWith(fontSize: 12),
                     ),
                     Text(
-                      '2 Items',
+                      '${cartProvider.totalItems()} Items',
                       style: primaryTextStyle.copyWith(fontWeight: medium),
                     ),
                   ],
@@ -138,7 +171,7 @@ class CheckoutPage extends StatelessWidget {
                       style: secondaryTextStyle.copyWith(fontSize: 12),
                     ),
                     Text(
-                      'IDR 120.000',
+                      '\IDR ${cartProvider.totalPrice()}',
                       style: primaryTextStyle.copyWith(fontWeight: medium),
                     ),
                   ],
@@ -177,7 +210,7 @@ class CheckoutPage extends StatelessWidget {
                       style: priceTextStyle.copyWith(fontWeight: semiBold),
                     ),
                     Text(
-                      'IDR 240.000',
+                      '\IDR ${cartProvider.totalPrice()}',
                       style: priceTextStyle.copyWith(fontWeight: semiBold),
                     )
                   ],
@@ -192,26 +225,27 @@ class CheckoutPage extends StatelessWidget {
             thickness: 1,
             color: Color(0xFF2E3141),
           ),
-          Container(
-            height: 50,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(vertical: defaultMargin),
-            child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/success-checkout');
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
-                child: Text(
-                  'Check Now',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: semiBold,
-                  ),
-                )),
-          ),
+          isLoading
+              ? Container(
+                  margin: EdgeInsets.only(bottom: 30), child: LoadingButton())
+              : Container(
+                  height: 50,
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(vertical: defaultMargin),
+                  child: TextButton(
+                      onPressed: handleCheckOut,
+                      style: TextButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12))),
+                      child: Text(
+                        'Check Now',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: semiBold,
+                        ),
+                      )),
+                ),
         ],
       );
     }

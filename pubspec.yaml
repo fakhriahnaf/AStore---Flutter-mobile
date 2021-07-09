@@ -25,6 +25,8 @@ dependencies:
     sdk: flutter
   carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.0
+  firebase_core: ^1.0.0
+  cloud_firestore : ^1.0.0
   flutter_snackbar: ^0.0.3
   google_fonts: ^2.1.0
   http: ^0.13.3
